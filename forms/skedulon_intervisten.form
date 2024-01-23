@@ -1,0 +1,42 @@
+{
+  "components": [
+    {
+      "subtype": "date",
+      "dateLabel": "Skedulon intervisten",
+      "label": "Date time",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_08vw3bq",
+        "columns": null
+      },
+      "id": "Field_0pk3ual",
+      "key": "data_skedulimit",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Interviste",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0whtdey",
+        "columns": null
+      },
+      "id": "Field_03wxjo2",
+      "key": "interviste",
+      "defaultValue": "hr",
+      "validate": {
+        "pattern": "hr|teknike|finance"
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0sdfkjf",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.19.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 14
+}

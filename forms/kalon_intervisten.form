@@ -1,0 +1,24 @@
+{
+  "components": [
+    {
+      "label": "Kalon per fazen tjeter?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_0yku9xv",
+        "columns": null
+      },
+      "id": "Field_0jb70wz",
+      "key": "kalon",
+      "defaultValue": true
+    }
+  ],
+  "type": "default",
+  "id": "Form_06j9kfw",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.19.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 14
+}

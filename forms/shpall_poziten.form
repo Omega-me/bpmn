@@ -1,0 +1,26 @@
+{
+  "components": [
+    {
+      "label": "Informacione ne lidhje me pozicionin e punes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_04lqsq3",
+        "columns": null
+      },
+      "id": "Field_0gm4klj",
+      "key": "pozicioni",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_1bht65d",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.19.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 14
+}

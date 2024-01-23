@@ -1,0 +1,5 @@
+https://downloads.camunda.cloud/release/camunda-bpm/run/  download camuda platform here 
+https://www.youtube.com/watch?v=TlFojzQNopA&list=PLJG25HlmvsOX8TiIGUZcVW-ez053YsOX0&index=1 camuda setup
+https://www.youtube.com/watch?v=J_ut6-7GUkQ&list=PLJG25HlmvsOX8TiIGUZcVW-ez053YsOX0&index=2 camuda building a process and adding forms in camuda run
+https://www.youtube.com/watch?v=k-rS2CujP8k&list=PLJG25HlmvsOX8TiIGUZcVW-ez053YsOX0&index=3 adding external task and using node js for service tasks and using variables on gateways
+https://www.youtube.com/watch?v=6GHp55PGt_U&list=PLJG25HlmvsOX8TiIGUZcVW-ez053YsOX0&index=4 triggeringg timers and error events

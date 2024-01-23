@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "label": "I ploteson kandidati kriteret e pozicionit te punes?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1tofuw9",
+        "columns": null
+      },
+      "id": "Field_0wy1uff",
+      "key": "ploteson_kriteret"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1t8peux",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.19.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 14
+}

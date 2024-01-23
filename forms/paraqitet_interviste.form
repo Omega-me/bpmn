@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "label": "Paraqitet kandidati ne interviste",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_0zobsbq",
+        "columns": null
+      },
+      "id": "Field_147ot67",
+      "key": "paraqitet"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1hf5b93",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.19.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 14
+}

@@ -1,0 +1,24 @@
+{
+  "components": [
+    {
+      "label": "Kandidati bie dakord me kushtet e kontrates dhe firmos?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_0kn7zic",
+        "columns": null
+      },
+      "id": "Field_0w32kqm",
+      "key": "firmos",
+      "defaultValue": true
+    }
+  ],
+  "type": "default",
+  "id": "Form_1ba7q37",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.19.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 14
+}
