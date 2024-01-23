@@ -1,22 +1,19 @@
 {
   "components": [
     {
-      "label": "Interviste",
-      "type": "textfield",
+      "label": "Eshte kontrata gati",
+      "type": "checkbox",
       "layout": {
-        "row": "Row_0whtdey",
+        "row": "Row_0x23c94",
         "columns": null
       },
-      "id": "Field_03wxjo2",
-      "key": "interviste",
-      "defaultValue": "hr",
-      "validate": {
-        "pattern": "hr|teknike|finance"
-      }
+      "id": "Field_0a7idm7",
+      "key": "kontrata_gati",
+      "defaultValue": true
     }
   ],
   "type": "default",
-  "id": "skedulon_intervisten",
+  "id": "pergatit_kontraten",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.19.0"
