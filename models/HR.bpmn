@@ -8,7 +8,7 @@
     <bpmn:messageFlow id="Flow_0iyed1m" name="Dergon email kandidatit per caktimin e dates dhe orarit te intervistes" sourceRef="Event_15mc2pf" targetRef="Participant_0bpmtxd" />
     <bpmn:messageFlow id="Flow_04if5qp" name="Njofton kandidatin qe nuk kalon intervisten" sourceRef="Event_01gxqqi" targetRef="Participant_0bpmtxd" />
     <bpmn:messageFlow id="Flow_0m346d1" name="Kandidati merr feedback mbi intervisten e kryer" sourceRef="Event_08uqc46" targetRef="Participant_0bpmtxd" />
-    <bpmn:messageFlow id="Flow_0802v0e" sourceRef="shpall_poziten" targetRef="Participant_0bpmtxd" />
+    <bpmn:messageFlow id="Flow_0802v0e" name="Perhapet njoftimi per pozicion te lire pune" sourceRef="shpall_poziten" targetRef="Participant_0bpmtxd" />
     <bpmn:messageFlow id="Flow_1rv7n3x" name="Kandidatei dergon CV" sourceRef="Participant_0bpmtxd" targetRef="ruan_cv" />
     <bpmn:group id="Group_1mxxjwd" />
   </bpmn:collaboration>
@@ -34,7 +34,6 @@
         <bpmn:flowNodeRef>Event_1j95k5i</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1vij0na</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>shqyrton_aplikimin</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_1k7b9au</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>interviston_kandidatin_hr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_08uqc46</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>shpall_poziten</bpmn:flowNodeRef>
@@ -48,6 +47,7 @@
         <bpmn:flowNodeRef>Event_15mc2pf</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0zehwy6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ruan_cv</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1k7b9au</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataStoreReference id="DataStoreReference_1ny7pgm" name="Databaza" />
@@ -96,11 +96,6 @@
       <bpmn:incoming>Flow_0jwxjqp</bpmn:incoming>
       <bpmn:outgoing>Flow_1o3hdr5</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="Gateway_1k7b9au" name="I ploteson kandidati kriteret e pozicionit te punes?">
-      <bpmn:incoming>Flow_1o3hdr5</bpmn:incoming>
-      <bpmn:outgoing>Flow_1v8l33h</bpmn:outgoing>
-      <bpmn:outgoing>Flow_07yb911</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:userTask id="interviston_kandidatin_hr" name="Interviston kandidatin" camunda:formRef="kalon_intervisten" camunda:formRefBinding="deployment">
       <bpmn:incoming>Flow_19kqz4q</bpmn:incoming>
       <bpmn:outgoing>Flow_142dcc6</bpmn:outgoing>
@@ -255,6 +250,11 @@
         <bpmn:targetRef>DataStoreReference_1ny7pgm</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1k7b9au" name="I ploteson kandidati kriteret e pozicionit te punes?">
+      <bpmn:incoming>Flow_1o3hdr5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1v8l33h</bpmn:outgoing>
+      <bpmn:outgoing>Flow_07yb911</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
   </bpmn:process>
   <bpmn:process id="Process_1av3nn8" isExecutable="false" />
   <bpmn:message id="Message_0oqf7li" name="njofto kandidatin per orarin" />
@@ -325,12 +325,6 @@
         <dc:Bounds x="1450" y="890" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1k7b9au_di" bpmnElement="Gateway_1k7b9au" isMarkerVisible="true">
-        <dc:Bounds x="1625" y="905" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1609" y="853" width="82" height="53" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0t2tsun_di" bpmnElement="interviston_kandidatin_hr">
         <dc:Bounds x="2440" y="1050" width="100" height="80" />
         <bpmndi:BPMNLabel />
@@ -378,10 +372,6 @@
           <dc:Bounds x="2064" y="993" width="73" height="66" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0su6k1r_di" bpmnElement="Activity_0zehwy6">
-        <dc:Bounds x="1930" y="1050" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_07ttbrx_di" bpmnElement="pergatit_kontrate">
         <dc:Bounds x="1730" y="2360" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -405,8 +395,18 @@
         <dc:Bounds x="2440" y="1790" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0su6k1r_di" bpmnElement="Activity_0zehwy6">
+        <dc:Bounds x="1930" y="1050" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1bn5lm9_di" bpmnElement="ruan_cv">
         <dc:Bounds x="1130" y="890" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1k7b9au_di" bpmnElement="Gateway_1k7b9au" isMarkerVisible="true">
+        <dc:Bounds x="1605" y="905" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1589" y="853" width="82" height="53" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0rh2ysl_di" bpmnElement="Event_0qxhm33">
         <dc:Bounds x="1642" y="1212" width="36" height="36" />
@@ -441,12 +441,10 @@
         <di:waypoint x="1630" y="1230" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_07yb911_di" bpmnElement="Flow_07yb911">
-        <di:waypoint x="1650" y="955" />
-        <di:waypoint x="1650" y="1053" />
-        <di:waypoint x="1630" y="1053" />
+        <di:waypoint x="1630" y="955" />
         <di:waypoint x="1630" y="1150" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1633" y="1035" width="14" height="14" />
+          <dc:Bounds x="1613" y="1122" width="14" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_142dcc6_di" bpmnElement="Flow_142dcc6">
@@ -495,10 +493,10 @@
         <di:waypoint x="3102" y="1440" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1v8l33h_di" bpmnElement="Flow_1v8l33h">
-        <di:waypoint x="1675" y="930" />
+        <di:waypoint x="1655" y="930" />
         <di:waypoint x="2142" y="930" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1714" y="913" width="12" height="14" />
+          <dc:Bounds x="1696" y="913" width="12" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_1rz5ivo" bpmnElement="Flow_0ngij4c">
@@ -556,7 +554,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1o3hdr5_di" bpmnElement="Flow_1o3hdr5">
         <di:waypoint x="1550" y="930" />
-        <di:waypoint x="1625" y="930" />
+        <di:waypoint x="1605" y="930" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1b3hcm8_di" bpmnElement="Flow_1b3hcm8">
         <di:waypoint x="2610" y="1345" />
@@ -630,17 +628,6 @@
         <dc:Bounds x="559" y="310" width="2746" height="270" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0802v0e_di" bpmnElement="Flow_0802v0e">
-        <di:waypoint x="920" y="890" />
-        <di:waypoint x="920" y="580" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1rv7n3x_di" bpmnElement="Flow_1rv7n3x">
-        <di:waypoint x="1180" y="580" />
-        <di:waypoint x="1180" y="890" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1193" y="710" width="54" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Group_1mxxjwd_di" bpmnElement="Group_1mxxjwd">
         <dc:Bounds x="160" y="80" width="3460" height="2950" />
       </bpmndi:BPMNShape>
@@ -674,6 +661,20 @@
         <di:waypoint x="2610" y="580" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2616" y="711" width="88" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0802v0e_di" bpmnElement="Flow_0802v0e">
+        <di:waypoint x="920" y="890" />
+        <di:waypoint x="920" y="580" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="928" y="704" width="84" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rv7n3x_di" bpmnElement="Flow_1rv7n3x">
+        <di:waypoint x="1180" y="580" />
+        <di:waypoint x="1180" y="890" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1193" y="710" width="54" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
