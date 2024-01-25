@@ -8,6 +8,8 @@
     <bpmn:messageFlow id="Flow_0iyed1m" name="Dergon email kandidatit per caktimin e dates dhe orarit te intervistes" sourceRef="Event_15mc2pf" targetRef="Participant_0bpmtxd" />
     <bpmn:messageFlow id="Flow_04if5qp" name="Njofton kandidatin qe nuk kalon intervisten" sourceRef="Event_01gxqqi" targetRef="Participant_0bpmtxd" />
     <bpmn:messageFlow id="Flow_0m346d1" name="Kandidati merr feedback mbi intervisten e kryer" sourceRef="Event_08uqc46" targetRef="Participant_0bpmtxd" />
+    <bpmn:messageFlow id="Flow_0802v0e" sourceRef="shpall_poziten" targetRef="Participant_0bpmtxd" />
+    <bpmn:messageFlow id="Flow_1rv7n3x" name="Kandidatei dergon CV" sourceRef="Participant_0bpmtxd" targetRef="ruan_cv" />
     <bpmn:group id="Group_1mxxjwd" />
   </bpmn:collaboration>
   <bpmn:process id="procesi_punesimit_hr" name="Procesi punesimit HR" isExecutable="true" camunda:historyTimeToLive="180">
@@ -18,25 +20,20 @@
         <bpmn:flowNodeRef>pergatit_kontrate</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ofron_kontrate</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1w0b319</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0j2qrlh</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="departamenti_teknik" name="Departamenti teknik">
         <bpmn:flowNodeRef>Gateway_1h5c3jx</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>interviston_kandidatin_teknike</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>dergo_feedback</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0i1pici</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0dqxl51</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="burimet_njerezore" name="Burimet njerezore">
         <bpmn:flowNodeRef>Event_0lg5l43</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_15mc2pf</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>skedulon_intervisten</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_15akjv5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1uho8lz</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1j95k5i</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1vij0na</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>shqyrton_aplikimin</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_1h5hfj4</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1k7b9au</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>interviston_kandidatin_hr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_08uqc46</bpmn:flowNodeRef>
@@ -47,8 +44,9 @@
         <bpmn:flowNodeRef>Event_01gxqqi</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1b47ykc</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_131vt38</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0zehwy6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0qxhm33</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_15mc2pf</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0zehwy6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ruan_cv</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
@@ -56,11 +54,6 @@
     <bpmn:startEvent id="Event_0lg5l43" name="Starton procesin e rekrutimit te nje kandidati">
       <bpmn:outgoing>Flow_0nl0587</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:intermediateThrowEvent id="Event_15mc2pf" name="Dergo mesazh kandidatit per daten e intervistes">
-      <bpmn:incoming>Flow_1av1k9l</bpmn:incoming>
-      <bpmn:outgoing>Flow_05s10is</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0vn2qnu" />
-    </bpmn:intermediateThrowEvent>
     <bpmn:userTask id="skedulon_intervisten" name="schedulon Intervsten" camunda:formRef="skedulon_intervisten" camunda:formRefBinding="deployment">
       <bpmn:incoming>Flow_0z8fv23</bpmn:incoming>
       <bpmn:incoming>Flow_0ete5im</bpmn:incoming>
@@ -100,14 +93,9 @@
       <bpmn:outgoing>Flow_0ngij4c</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="shqyrton_aplikimin" name="Shqyrton aplikimin" camunda:formRef="shqrton_aplikimin" camunda:formRefBinding="deployment">
-      <bpmn:incoming>Flow_1u13lgv</bpmn:incoming>
+      <bpmn:incoming>Flow_0jwxjqp</bpmn:incoming>
       <bpmn:outgoing>Flow_1o3hdr5</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:parallelGateway id="Gateway_1h5hfj4">
-      <bpmn:incoming>Flow_0xh9689</bpmn:incoming>
-      <bpmn:outgoing>Flow_1u13lgv</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0u91gpf</bpmn:outgoing>
-    </bpmn:parallelGateway>
     <bpmn:exclusiveGateway id="Gateway_1k7b9au" name="I ploteson kandidati kriteret e pozicionit te punes?">
       <bpmn:incoming>Flow_1o3hdr5</bpmn:incoming>
       <bpmn:outgoing>Flow_1v8l33h</bpmn:outgoing>
@@ -122,17 +110,18 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_1uy78ow" />
     </bpmn:intermediateThrowEvent>
     <bpmn:userTask id="shpall_poziten" name="Shpall pozitien" camunda:formRef="shpall_poziten" camunda:formRefBinding="deployment">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_0nl0587</bpmn:incoming>
-      <bpmn:outgoing>Flow_0xh9689</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ngepsz</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:parallelGateway id="Gateway_1bp2ngp">
       <bpmn:incoming>Flow_13e2nwn</bpmn:incoming>
+      <bpmn:incoming>Flow_0hsx29m</bpmn:incoming>
       <bpmn:outgoing>Flow_1b3hcm8</bpmn:outgoing>
       <bpmn:outgoing>Flow_0ete5im</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:exclusiveGateway id="Gateway_0tpcrvp">
       <bpmn:incoming>Flow_14ofth1</bpmn:incoming>
-      <bpmn:incoming>Flow_15t0udt</bpmn:incoming>
       <bpmn:outgoing>Flow_13e2nwn</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:exclusiveGateway id="Gateway_0k6e67b">
@@ -155,6 +144,7 @@
       <bpmn:outgoing>Flow_10rjeuq</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:endEvent id="Event_162vz8j" name="Perfundon procesi, kandidati punesohet">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_10rjeuq</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:exclusiveGateway id="Gateway_131vt38" name="Paraqitet kandidati per interviste sipas orarit te skeduluar?">
@@ -162,19 +152,6 @@
       <bpmn:outgoing>Flow_0z8fv23</bpmn:outgoing>
       <bpmn:outgoing>Flow_1dknwvv</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0zehwy6" name="Verifikon nese kandidati paraqitet ne interviste" camunda:formRef="paraqitet_interviste" camunda:formRefBinding="deployment">
-      <bpmn:incoming>Flow_05s10is</bpmn:incoming>
-      <bpmn:outgoing>Flow_02qdarg</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="dergo_feedback" name="Dergo Feedback ne lidhje me detajet teknike" camunda:type="external" camunda:topic="dergo_feedback_finance">
-      <bpmn:incoming>Flow_0bg0s0e</bpmn:incoming>
-      <bpmn:outgoing>Flow_1ym9sq8</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:parallelGateway id="Gateway_0i1pici">
-      <bpmn:incoming>Flow_0clj3k4</bpmn:incoming>
-      <bpmn:outgoing>Flow_15t0udt</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0bg0s0e</bpmn:outgoing>
-    </bpmn:parallelGateway>
     <bpmn:boundaryEvent id="Event_0qxhm33" name="Kandidati nuk u paraqit 2 here per interviste" attachedToRef="skedulon_intervisten">
       <bpmn:outgoing>Flow_1b457qs</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0muts1s">
@@ -209,7 +186,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${ploteson_kriteret==false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0ngij4c" sourceRef="interviston_kandidatin_teknike" targetRef="Gateway_1h5c3jx" />
-    <bpmn:sequenceFlow id="Flow_0clj3k4" name="Po" sourceRef="Gateway_1h5c3jx" targetRef="Gateway_0i1pici">
+    <bpmn:sequenceFlow id="Flow_0clj3k4" name="Po" sourceRef="Gateway_1h5c3jx" targetRef="dergo_feedback">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${kalon==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1qn65gx" name="Jo" sourceRef="Gateway_1h5c3jx" targetRef="Gateway_0k6e67b">
@@ -222,31 +199,26 @@
     <bpmn:sequenceFlow id="Flow_0rsyk5o" name="Interviste teknike" sourceRef="Gateway_1vij0na" targetRef="interviston_kandidatin_teknike">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${interviste=='teknike'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0t3bnew" name="Interviste me financen" sourceRef="Gateway_1vij0na" targetRef="Gateway_0dqxl51">
+    <bpmn:sequenceFlow id="Flow_0t3bnew" name="Interviste me financen" sourceRef="Gateway_1vij0na" targetRef="pergatit_kontrate">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${interviste=='finance'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1u13lgv" sourceRef="Gateway_1h5hfj4" targetRef="shqyrton_aplikimin" />
     <bpmn:sequenceFlow id="Flow_1o3hdr5" sourceRef="shqyrton_aplikimin" targetRef="Gateway_1k7b9au" />
-    <bpmn:sequenceFlow id="Flow_0u91gpf" sourceRef="Gateway_1h5hfj4" targetRef="ruan_cv" />
     <bpmn:sequenceFlow id="Flow_1b3hcm8" sourceRef="Gateway_1bp2ngp" targetRef="Event_08uqc46" />
     <bpmn:sequenceFlow id="Flow_13e2nwn" sourceRef="Gateway_0tpcrvp" targetRef="Gateway_1bp2ngp" />
-    <bpmn:sequenceFlow id="Flow_15t0udt" sourceRef="Gateway_0i1pici" targetRef="Gateway_0tpcrvp" />
     <bpmn:sequenceFlow id="Flow_0j8n6k8" sourceRef="Gateway_0k6e67b" targetRef="Event_01gxqqi" />
     <bpmn:sequenceFlow id="Flow_0hpq1d3" sourceRef="ofron_kontrate" targetRef="Gateway_1k3uirq" />
     <bpmn:sequenceFlow id="Flow_10rjeuq" name="Po" sourceRef="Gateway_1k3uirq" targetRef="Event_162vz8j">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${firmos==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_08rd233" sourceRef="Gateway_0j2qrlh" targetRef="ofron_kontrate" />
     <bpmn:sequenceFlow id="Flow_0jctcnv" sourceRef="pergatit_kontrate" targetRef="Gateway_1w0b319" />
     <bpmn:sequenceFlow id="Flow_02qdarg" sourceRef="Activity_0zehwy6" targetRef="Gateway_131vt38" />
-    <bpmn:sequenceFlow id="Flow_0bg0s0e" sourceRef="Gateway_0i1pici" targetRef="dergo_feedback" />
     <bpmn:userTask id="pergatit_kontrate" name="Pergatit nje kontrate paraprake" camunda:formRef="pergatit_kontraten" camunda:formRefBinding="deployment">
       <bpmn:incoming>Flow_0oaeszq</bpmn:incoming>
-      <bpmn:incoming>Flow_152h32y</bpmn:incoming>
+      <bpmn:incoming>Flow_0t3bnew</bpmn:incoming>
       <bpmn:outgoing>Flow_0jctcnv</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="ofron_kontrate" name="Ofron kontraten kandidatit per te firmosur" camunda:formRef="kandidati_firmos" camunda:formRefBinding="deployment">
-      <bpmn:incoming>Flow_08rd233</bpmn:incoming>
+      <bpmn:incoming>Flow_0zl8r0o</bpmn:incoming>
       <bpmn:outgoing>Flow_0hpq1d3</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:exclusiveGateway id="Gateway_1w0b319" name="Eshte kontrata gati">
@@ -254,30 +226,35 @@
       <bpmn:outgoing>Flow_0zl8r0o</bpmn:outgoing>
       <bpmn:outgoing>Flow_0oaeszq</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0zl8r0o" name="Po" sourceRef="Gateway_1w0b319" targetRef="Gateway_0j2qrlh">
+    <bpmn:sequenceFlow id="Flow_0zl8r0o" name="Po" sourceRef="Gateway_1w0b319" targetRef="ofron_kontrate">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${kontrata_gati==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:exclusiveGateway id="Gateway_0j2qrlh">
-      <bpmn:incoming>Flow_0zl8r0o</bpmn:incoming>
-      <bpmn:outgoing>Flow_08rd233</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0oaeszq" name="Jo" sourceRef="Gateway_1w0b319" targetRef="pergatit_kontrate">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${kontrata_gati==false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1ym9sq8" sourceRef="dergo_feedback" targetRef="Gateway_0dqxl51" />
-    <bpmn:exclusiveGateway id="Gateway_0dqxl51">
-      <bpmn:incoming>Flow_0t3bnew</bpmn:incoming>
-      <bpmn:incoming>Flow_1ym9sq8</bpmn:incoming>
-      <bpmn:outgoing>Flow_152h32y</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_152h32y" sourceRef="Gateway_0dqxl51" targetRef="pergatit_kontrate" />
+    <bpmn:intermediateThrowEvent id="Event_15mc2pf" name="Dergo mesazh kandidatit per daten e intervistes">
+      <bpmn:incoming>Flow_1av1k9l</bpmn:incoming>
+      <bpmn:outgoing>Flow_05s10is</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0irxh6y" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:serviceTask id="dergo_feedback" name="Dergo Feedback ne lidhje me detajet teknike" camunda:type="external" camunda:topic="dergo_feedback_finance">
+      <bpmn:incoming>Flow_0clj3k4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hsx29m</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0hsx29m" sourceRef="dergo_feedback" targetRef="Gateway_1bp2ngp" />
+    <bpmn:userTask id="Activity_0zehwy6" name="Verifikon nese kandidati paraqitet ne interviste" camunda:formRef="paraqitet_interviste" camunda:formRefBinding="deployment">
+      <bpmn:incoming>Flow_05s10is</bpmn:incoming>
+      <bpmn:outgoing>Flow_02qdarg</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1ngepsz" sourceRef="shpall_poziten" targetRef="ruan_cv" />
+    <bpmn:sequenceFlow id="Flow_0jwxjqp" sourceRef="ruan_cv" targetRef="shqyrton_aplikimin" />
     <bpmn:serviceTask id="ruan_cv" name="Ruan CV e aplikantit ne databaze" camunda:type="external" camunda:topic="ruan_cv">
-      <bpmn:incoming>Flow_0u91gpf</bpmn:incoming>
+      <bpmn:incoming>Flow_1ngepsz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jwxjqp</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0n8do3t">
         <bpmn:targetRef>DataStoreReference_1ny7pgm</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0xh9689" sourceRef="shpall_poziten" targetRef="Gateway_1h5hfj4" />
   </bpmn:process>
   <bpmn:process id="Process_1av3nn8" isExecutable="false" />
   <bpmn:message id="Message_0oqf7li" name="njofto kandidatin per orarin" />
@@ -310,12 +287,6 @@
         <dc:Bounds x="642" y="912" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="615" y="970" width="90" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_093fcov_di" bpmnElement="Event_15mc2pf">
-        <dc:Bounds x="1782" y="1072" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1685" y="1080" width="90" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1w19qov_di" bpmnElement="skedulon_intervisten">
@@ -353,9 +324,6 @@
       <bpmndi:BPMNShape id="Activity_1cu4jbr_di" bpmnElement="shqyrton_aplikimin">
         <dc:Bounds x="1450" y="890" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1gcwawo_di" bpmnElement="Gateway_1h5hfj4">
-        <dc:Bounds x="1275" y="905" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1k7b9au_di" bpmnElement="Gateway_1k7b9au" isMarkerVisible="true">
         <dc:Bounds x="1625" y="905" width="50" height="50" />
@@ -414,13 +382,6 @@
         <dc:Bounds x="1930" y="1050" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0e43gp0_di" bpmnElement="dergo_feedback">
-        <dc:Bounds x="2450" y="1900" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0rwccuy_di" bpmnElement="Gateway_0i1pici">
-        <dc:Bounds x="2465" y="1785" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_07ttbrx_di" bpmnElement="pergatit_kontrate">
         <dc:Bounds x="1730" y="2360" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -431,17 +392,21 @@
       <bpmndi:BPMNShape id="Gateway_1w0b319_di" bpmnElement="Gateway_1w0b319" isMarkerVisible="true">
         <dc:Bounds x="1935" y="2375" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1925" y="2346" width="71" height="27" />
+          <dc:Bounds x="1986" y="2386" width="72" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0j2qrlh_di" bpmnElement="Gateway_0j2qrlh" isMarkerVisible="true">
-        <dc:Bounds x="2145" y="2375" width="50" height="50" />
+      <bpmndi:BPMNShape id="Event_0z9a8m9_di" bpmnElement="Event_15mc2pf">
+        <dc:Bounds x="1782" y="1072" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1685" y="1080" width="90" height="40" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0dqxl51_di" bpmnElement="Gateway_0dqxl51" isMarkerVisible="true">
-        <dc:Bounds x="1875" y="2015" width="50" height="50" />
+      <bpmndi:BPMNShape id="Activity_0e43gp0_di" bpmnElement="dergo_feedback">
+        <dc:Bounds x="2440" y="1790" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1bn5lm9_di" bpmnElement="ruan_cv">
-        <dc:Bounds x="1250" y="1050" width="100" height="80" />
+        <dc:Bounds x="1130" y="890" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0rh2ysl_di" bpmnElement="Event_0qxhm33">
         <dc:Bounds x="1642" y="1212" width="36" height="36" />
@@ -544,9 +509,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_1x084sj" bpmnElement="Flow_0clj3k4">
         <di:waypoint x="2490" y="1705" />
-        <di:waypoint x="2490" y="1785" />
+        <di:waypoint x="2490" y="1790" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2463" y="1736" width="14" height="14" />
+          <dc:Bounds x="2473" y="1723" width="14" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1qn65gx_di" bpmnElement="Flow_1qn65gx">
@@ -583,23 +548,15 @@
       <bpmndi:BPMNEdge id="Flow_0t3bnew_di" bpmnElement="Flow_0t3bnew">
         <di:waypoint x="2240" y="1095" />
         <di:waypoint x="2240" y="1290" />
-        <di:waypoint x="1900" y="1290" />
-        <di:waypoint x="1900" y="2015" />
+        <di:waypoint x="1770" y="1290" />
+        <di:waypoint x="1770" y="2360" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2026" y="1296" width="64" height="27" />
+          <dc:Bounds x="1956" y="1296" width="64" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1u13lgv_di" bpmnElement="Flow_1u13lgv">
-        <di:waypoint x="1325" y="930" />
-        <di:waypoint x="1450" y="930" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1o3hdr5_di" bpmnElement="Flow_1o3hdr5">
         <di:waypoint x="1550" y="930" />
         <di:waypoint x="1625" y="930" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0u91gpf_di" bpmnElement="Flow_0u91gpf">
-        <di:waypoint x="1300" y="955" />
-        <di:waypoint x="1300" y="1050" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1b3hcm8_di" bpmnElement="Flow_1b3hcm8">
         <di:waypoint x="2610" y="1345" />
@@ -608,11 +565,6 @@
       <bpmndi:BPMNEdge id="Flow_13e2nwn_di" bpmnElement="Flow_13e2nwn">
         <di:waypoint x="2705" y="1370" />
         <di:waypoint x="2635" y="1370" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_15t0udt_di" bpmnElement="Flow_15t0udt">
-        <di:waypoint x="2515" y="1810" />
-        <di:waypoint x="2730" y="1810" />
-        <di:waypoint x="2730" y="1395" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0j8n6k8_di" bpmnElement="Flow_0j8n6k8">
         <di:waypoint x="2870" y="1065" />
@@ -630,12 +582,6 @@
           <dc:Bounds x="2698" y="2323" width="14" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_08rd233_di" bpmnElement="Flow_08rd233">
-        <di:waypoint x="2195" y="2400" />
-        <di:waypoint x="2240" y="2400" />
-        <di:waypoint x="2240" y="2270" />
-        <di:waypoint x="2320" y="2270" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jctcnv_di" bpmnElement="Flow_0jctcnv">
         <di:waypoint x="1830" y="2400" />
         <di:waypoint x="1935" y="2400" />
@@ -644,15 +590,12 @@
         <di:waypoint x="2030" y="1090" />
         <di:waypoint x="2075" y="1090" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0bg0s0e_di" bpmnElement="Flow_0bg0s0e">
-        <di:waypoint x="2490" y="1835" />
-        <di:waypoint x="2490" y="1900" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0zl8r0o_di" bpmnElement="Flow_0zl8r0o">
-        <di:waypoint x="1985" y="2400" />
-        <di:waypoint x="2145" y="2400" />
+        <di:waypoint x="1960" y="2375" />
+        <di:waypoint x="1960" y="2270" />
+        <di:waypoint x="2320" y="2270" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2028" y="2383" width="14" height="14" />
+          <dc:Bounds x="2015" y="2276" width="14" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0oaeszq_di" bpmnElement="Flow_0oaeszq">
@@ -664,19 +607,18 @@
           <dc:Bounds x="1964" y="2443" width="12" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1ym9sq8_di" bpmnElement="Flow_1ym9sq8">
-        <di:waypoint x="2500" y="1980" />
-        <di:waypoint x="2500" y="2040" />
-        <di:waypoint x="1925" y="2040" />
+      <bpmndi:BPMNEdge id="Flow_0hsx29m_di" bpmnElement="Flow_0hsx29m">
+        <di:waypoint x="2540" y="1830" />
+        <di:waypoint x="2610" y="1830" />
+        <di:waypoint x="2610" y="1395" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_152h32y_di" bpmnElement="Flow_152h32y">
-        <di:waypoint x="1875" y="2040" />
-        <di:waypoint x="1770" y="2040" />
-        <di:waypoint x="1770" y="2360" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0xh9689_di" bpmnElement="Flow_0xh9689">
+      <bpmndi:BPMNEdge id="Flow_1ngepsz_di" bpmnElement="Flow_1ngepsz">
         <di:waypoint x="970" y="930" />
-        <di:waypoint x="1275" y="930" />
+        <di:waypoint x="1130" y="930" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jwxjqp_di" bpmnElement="Flow_0jwxjqp">
+        <di:waypoint x="1230" y="930" />
+        <di:waypoint x="1450" y="930" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="DataStoreReference_1ny7pgm_di" bpmnElement="DataStoreReference_1ny7pgm">
         <dc:Bounds x="395" y="1275" width="50" height="50" />
@@ -688,12 +630,23 @@
         <dc:Bounds x="559" y="310" width="2746" height="270" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0802v0e_di" bpmnElement="Flow_0802v0e">
+        <di:waypoint x="920" y="890" />
+        <di:waypoint x="920" y="580" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rv7n3x_di" bpmnElement="Flow_1rv7n3x">
+        <di:waypoint x="1180" y="580" />
+        <di:waypoint x="1180" y="890" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1193" y="710" width="54" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Group_1mxxjwd_di" bpmnElement="Group_1mxxjwd">
         <dc:Bounds x="160" y="80" width="3460" height="2950" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0n8do3t_di" bpmnElement="DataOutputAssociation_0n8do3t">
-        <di:waypoint x="1250" y="1102" />
-        <di:waypoint x="445" y="1295" />
+        <di:waypoint x="1130" y="954" />
+        <di:waypoint x="445" y="1289" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08qgdaz_di" bpmnElement="Flow_08qgdaz">
         <di:waypoint x="2160" y="912" />

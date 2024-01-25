@@ -5,15 +5,17 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index",
-    "ruaj": "node ruajCV",
-    "dergo": "node dergoFeedback",
-    "print": "node printoKontraten"
+    "start": "nodemon index",
+    "send": "node dergoMessage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "camunda-external-task-client-js": "^3.0.1"
+    "camunda-external-task-client-js": "^3.0.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   }
 }
