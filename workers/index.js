@@ -51,9 +51,9 @@ db.run(query, [], err => {
 const getAllFilesAndLast = () => {
   db.all(`SELECT * FROM files`, [], (err, rows) => {
     console.log('Te gjitha CV-te e ruajtura', rows);
-    if (rows.length > 1) {
+    if (rows && rows.length >= 1) {
       const date = new Date(rows[rows.length - 1].date * 1).toISOString().split('T')[0];
-      console.log(`CV e fundit e ruajtur: [id=>, ${rows[rows.length - 1].id}] [Date=> ${date}] [Emri=> ${rows[rows.length - 1].filename}]`);
+      console.log(`CV e fundit e ruajtur: [id=> ${rows[rows.length - 1].id}] [Date=> ${date}] [Emri=> ${rows[rows.length - 1].filename}]`);
     }
     if (err) {
       console.error('Error executing query:', err.message);
@@ -68,7 +68,7 @@ const client = new Client(config);
 
 client.subscribe('ruan_cv', async function ({ task, taskService }) {
   console.log('Duke ruajtur CV ne databaze...');
-  db.run(`INSERT INTO files (id , date, filename) VALUES (?,?,?);`, [null, Date.now(), 'CV.txt'], function (err) {
+  db.run(`INSERT INTO files (id , date, filename) VALUES (?,?,?);`, [null, Date.now(), 'CV.pdf'], function (err) {
     if (err) {
       return console.error('Error calling stored procedure:', err.message);
     }

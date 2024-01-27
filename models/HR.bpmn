@@ -38,7 +38,6 @@
         <bpmn:flowNodeRef>Event_08uqc46</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>shpall_poziten</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1bp2ngp</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0tpcrvp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0k6e67b</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_01gxqqi</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1b47ykc</bpmn:flowNodeRef>
@@ -48,6 +47,7 @@
         <bpmn:flowNodeRef>Activity_0zehwy6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ruan_cv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1k7b9au</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0tqofff</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:dataStoreReference id="DataStoreReference_1ny7pgm" name="Databaza" />
@@ -110,15 +110,10 @@
       <bpmn:outgoing>Flow_1ngepsz</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:parallelGateway id="Gateway_1bp2ngp">
-      <bpmn:incoming>Flow_13e2nwn</bpmn:incoming>
-      <bpmn:incoming>Flow_0hsx29m</bpmn:incoming>
+      <bpmn:incoming>Flow_1f1z0yl</bpmn:incoming>
       <bpmn:outgoing>Flow_1b3hcm8</bpmn:outgoing>
       <bpmn:outgoing>Flow_0ete5im</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:exclusiveGateway id="Gateway_0tpcrvp">
-      <bpmn:incoming>Flow_14ofth1</bpmn:incoming>
-      <bpmn:outgoing>Flow_13e2nwn</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:exclusiveGateway id="Gateway_0k6e67b">
       <bpmn:incoming>Flow_1d2ak47</bpmn:incoming>
       <bpmn:incoming>Flow_1qn65gx</bpmn:incoming>
@@ -167,7 +162,7 @@
     <bpmn:sequenceFlow id="Flow_1d2ak47" name="Jo" sourceRef="Gateway_15akjv5" targetRef="Gateway_0k6e67b">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${kalon==false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_14ofth1" name="Po" sourceRef="Gateway_15akjv5" targetRef="Gateway_0tpcrvp">
+    <bpmn:sequenceFlow id="Flow_14ofth1" name="Po" sourceRef="Gateway_15akjv5" targetRef="Gateway_0tqofff">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${kalon==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1rf2vzx" sourceRef="Event_1j95k5i" targetRef="Gateway_1uho8lz" />
@@ -199,7 +194,6 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1o3hdr5" sourceRef="shqyrton_aplikimin" targetRef="Gateway_1k7b9au" />
     <bpmn:sequenceFlow id="Flow_1b3hcm8" sourceRef="Gateway_1bp2ngp" targetRef="Event_08uqc46" />
-    <bpmn:sequenceFlow id="Flow_13e2nwn" sourceRef="Gateway_0tpcrvp" targetRef="Gateway_1bp2ngp" />
     <bpmn:sequenceFlow id="Flow_0j8n6k8" sourceRef="Gateway_0k6e67b" targetRef="Event_01gxqqi" />
     <bpmn:sequenceFlow id="Flow_0hpq1d3" sourceRef="ofron_kontrate" targetRef="Gateway_1k3uirq" />
     <bpmn:sequenceFlow id="Flow_10rjeuq" name="Po" sourceRef="Gateway_1k3uirq" targetRef="Event_162vz8j">
@@ -234,9 +228,8 @@
     </bpmn:intermediateThrowEvent>
     <bpmn:serviceTask id="dergo_feedback" name="Dergo Feedback ne lidhje me detajet teknike" camunda:type="external" camunda:topic="dergo_feedback_finance">
       <bpmn:incoming>Flow_0clj3k4</bpmn:incoming>
-      <bpmn:outgoing>Flow_0hsx29m</bpmn:outgoing>
+      <bpmn:outgoing>Flow_05rudex</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0hsx29m" sourceRef="dergo_feedback" targetRef="Gateway_1bp2ngp" />
     <bpmn:userTask id="Activity_0zehwy6" name="Verifikon nese kandidati paraqitet ne interviste" camunda:formRef="paraqitet_interviste" camunda:formRefBinding="deployment">
       <bpmn:incoming>Flow_05s10is</bpmn:incoming>
       <bpmn:outgoing>Flow_02qdarg</bpmn:outgoing>
@@ -255,6 +248,13 @@
       <bpmn:outgoing>Flow_1v8l33h</bpmn:outgoing>
       <bpmn:outgoing>Flow_07yb911</bpmn:outgoing>
     </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1f1z0yl" sourceRef="Gateway_0tqofff" targetRef="Gateway_1bp2ngp" />
+    <bpmn:exclusiveGateway id="Gateway_0tqofff">
+      <bpmn:incoming>Flow_14ofth1</bpmn:incoming>
+      <bpmn:incoming>Flow_05rudex</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f1z0yl</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_05rudex" sourceRef="dergo_feedback" targetRef="Gateway_0tqofff" />
   </bpmn:process>
   <bpmn:process id="Process_1av3nn8" isExecutable="false" />
   <bpmn:message id="Message_0oqf7li" name="njofto kandidatin per orarin" />
@@ -339,9 +339,6 @@
       <bpmndi:BPMNShape id="Gateway_02s5kg8_di" bpmnElement="Gateway_1bp2ngp">
         <dc:Bounds x="2585" y="1345" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0tpcrvp_di" bpmnElement="Gateway_0tpcrvp" isMarkerVisible="true">
-        <dc:Bounds x="2705" y="1345" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0k6e67b_di" bpmnElement="Gateway_0k6e67b" isMarkerVisible="true">
         <dc:Bounds x="2845" y="1065" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -408,6 +405,9 @@
           <dc:Bounds x="1589" y="853" width="82" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0tqofff_di" bpmnElement="Gateway_0tqofff" isMarkerVisible="true">
+        <dc:Bounds x="2705" y="1345" width="50" height="50" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0rh2ysl_di" bpmnElement="Event_0qxhm33">
         <dc:Bounds x="1642" y="1212" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -462,7 +462,7 @@
         <di:waypoint x="2730" y="1115" />
         <di:waypoint x="2730" y="1345" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2743" y="1157" width="14" height="14" />
+          <dc:Bounds x="2743" y="1152" width="14" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1rf2vzx_di" bpmnElement="Flow_1rf2vzx">
@@ -560,10 +560,6 @@
         <di:waypoint x="2610" y="1345" />
         <di:waypoint x="2610" y="1288" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_13e2nwn_di" bpmnElement="Flow_13e2nwn">
-        <di:waypoint x="2705" y="1370" />
-        <di:waypoint x="2635" y="1370" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0j8n6k8_di" bpmnElement="Flow_0j8n6k8">
         <di:waypoint x="2870" y="1065" />
         <di:waypoint x="2870" y="1030" />
@@ -605,11 +601,6 @@
           <dc:Bounds x="1964" y="2443" width="12" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0hsx29m_di" bpmnElement="Flow_0hsx29m">
-        <di:waypoint x="2540" y="1830" />
-        <di:waypoint x="2610" y="1830" />
-        <di:waypoint x="2610" y="1395" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ngepsz_di" bpmnElement="Flow_1ngepsz">
         <di:waypoint x="970" y="930" />
         <di:waypoint x="1130" y="930" />
@@ -617,6 +608,15 @@
       <bpmndi:BPMNEdge id="Flow_0jwxjqp_di" bpmnElement="Flow_0jwxjqp">
         <di:waypoint x="1230" y="930" />
         <di:waypoint x="1450" y="930" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f1z0yl_di" bpmnElement="Flow_1f1z0yl">
+        <di:waypoint x="2705" y="1370" />
+        <di:waypoint x="2635" y="1370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05rudex_di" bpmnElement="Flow_05rudex">
+        <di:waypoint x="2540" y="1830" />
+        <di:waypoint x="2730" y="1830" />
+        <di:waypoint x="2730" y="1395" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="DataStoreReference_1ny7pgm_di" bpmnElement="DataStoreReference_1ny7pgm">
         <dc:Bounds x="395" y="1275" width="50" height="50" />
